@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suíte Científica & Financeira</title>
+    <title>Calculadora Científica & Financeira</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen py-10 px-4 font-sans">
@@ -144,9 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1 class="text-3xl font-extrabold text-indigo-400 tracking-tight sm:text-4xl">
                 Calculadora Científica & Financeira
             </h1>
-            <p class="mt-2 text-slate-400 text-sm sm:text-base">
-                Aplicação monolítica construída em PHP Puro com estilização moderna.
-            </p>
         </header>
 
         <div class="flex border-b border-slate-700 mb-8 justify-center space-x-2 sm:space-x-4">
