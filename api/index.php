@@ -2,10 +2,16 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+/**
+ * Função utilitária para sanitização de entradas do usuário
+ */
 function sanitize_input($data) {
     return htmlspecialchars(trim((string)$data), ENT_QUOTES, 'UTF-8');
 }
 
+/**
+ * Função para formatação de valores monetários
+ */
 function format_money($value) {
     return 'R$ ' . number_format((float)$value, 2, ',', '.');
 }
@@ -29,7 +35,6 @@ $bh_c = isset($_POST['bh_c']) ? (float)$_POST['bh_c'] : 6;
 $bh_resultado = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
     if ($active_tab === 'juros') {
         $meses_totais = ($jc_tipo_tempo === 'anos') ? $jc_tempo * 12 : $jc_tempo;
         
@@ -38,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $taxa_mensal = $jc_taxa / 100;
         }
+
         $saldo_atual = $jc_principal;
         $total_investido = $jc_principal;
         $tabela_evolucao = [];
@@ -45,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         for ($mes = 1; $mes <= $meses_totais; $mes++) {
             $saldo_inicial = $saldo_atual;
             $juros_do_mes = $saldo_inicial * $taxa_mensal;
+            
             $aporte = $jc_aporte;
             $saldo_final = $saldo_inicial + $juros_do_mes + $aporte;
             
@@ -88,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cb_erro = "Por favor, insira um número para conversão.";
         }
     }
+
     if ($active_tab === 'bhaskara') {
         if ($bh_a == 0) {
             $bh_resultado = [
@@ -163,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div id="tab-juros" class="<?php echo $active_tab === 'juros' ? 'block' : 'hidden'; ?>">
             <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl mb-8">
-                <form action="index.php" method="POST">
+                <form action="" method="POST">
                     <input type="hidden" name="active_tab" value="juros">
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -225,6 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p class="text-2xl font-bold text-indigo-400 mt-1"><?php echo format_money($jc_resultado['montante_final']); ?></p>
                     </div>
                 </div>
+
                 <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl">
                     <div class="p-4 border-b border-slate-700">
                         <h3 class="font-bold text-lg text-slate-200">Evolução Mensal Detalhada</h3>
@@ -256,9 +265,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
         </div>
+
         <div id="tab-bases" class="<?php echo $active_tab === 'bases' ? 'block' : 'hidden'; ?>">
             <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
-                <form action="index.php" method="POST">
+                <form action="" method="POST">
                     <input type="hidden" name="active_tab" value="bases">
                     
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -313,13 +323,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endif; ?>
             </div>
         </div>
-
         <div id="tab-bhaskara" class="<?php echo $active_tab === 'bhaskara' ? 'block' : 'hidden'; ?>">
             <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
-                <form action="index.php" method="POST">
+                <form action="" method="POST">
                     <input type="hidden" name="active_tab" value="bhaskara">
                     
-                    <p class="text-sm text-slate-400 mb-4 text-center">Format: ax² + bx + c = 0</p>
+                    <p class="text-sm text-slate-400 mb-4 text-center">Formato: ax² + bx + c = 0</p>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
@@ -381,6 +390,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
+
     <script>
         function setTab(tabName) {
             document.getElementById('tab-juros').classList.add('hidden');
