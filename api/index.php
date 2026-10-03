@@ -2,16 +2,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-/**
- * Função utilitária para sanitização de entradas do usuário
- */
+
 function sanitize_input($data) {
     return htmlspecialchars(trim((string)$data), ENT_QUOTES, 'UTF-8');
 }
 
-/**
- * Função para formatação de valores monetários
- */
 function format_money($value) {
     return 'R$ ' . number_format((float)$value, 2, ',', '.');
 }
